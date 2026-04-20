@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { TaskService, Task } from '../services/task';
 
 @Component({
   selector: 'app-home',
@@ -6,8 +7,40 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
   standalone: false,
 })
-export class HomePage {
+export class HomePage implements OnInit {
+  tasks: Task[] = [];
+  newTaskTitle: string = '';
 
-  constructor() {}
+  constructor(private taskService: TaskService) {}
 
+  ngOnInit() {
+    this.loadTasks();
+  }
+
+  loadTasks() {
+    this.taskService.getTasks().subscribe(tasks => {
+      this.tasks = tasks;
+    });
+  }
+
+  addTask() {
+    if (!this.newTaskTitle.trim()) return;
+
+    this.taskService.addTask(this.newTaskTitle).subscribe(task => {
+      this.tasks.push(task);
+      this.newTaskTitle = '';
+    });
+  }
+
+  toggleTask(task: Task) {
+    this.taskService.toggleTask(task._id!).subscribe(updatedTask => {
+      task.completed = updatedTask.completed;
+    });
+  }
+
+  deleteTask(task: Task) {
+    this.taskService.deleteTask(task._id!).subscribe(() => {
+      this.tasks = this.tasks.filter(t => t._id !== task._id);
+    });
+  }
 }

@@ -3,11 +3,17 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
+export interface Category {
+  _id?: string;
+  name: string;
+}
+
 export interface Task {
   _id?: string;
   title: string;
   status: 'pendiente' | 'en_progreso' | 'completada';
-  imageUrl?: string; 
+  imageUrl?: string;
+  categories?: Category[];
   username?: string;
 }
 
@@ -32,9 +38,10 @@ export class TaskService {
     });
   }
 
-  addTask(title: string, image?: File): Observable<Task> {
+  addTask(title: string, categories: string[] = [], image?: File): Observable<Task> {
     const formData = new FormData();
     formData.append('title', title);
+    formData.append('categories', JSON.stringify(categories));
 
     if (image) {
       formData.append('image', image);

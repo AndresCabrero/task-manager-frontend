@@ -3,6 +3,7 @@
     <ion-title>Mis Tareas</ion-title>
 
     <ion-buttons slot="end">
+      <ion-button routerLink="/categories">Categorías</ion-button>
       <ion-button (click)="logout()">Cerrar sesión</ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -19,6 +20,19 @@
     <input type="file" accept="image/*" (change)="onFileSelected($event)">
   </ion-item>
 
+  <ion-item>
+    <ion-label>Categorías</ion-label>
+    <ion-select
+      [(ngModel)]="selectedCategories"
+      multiple="true"
+      interface="alert"
+      placeholder="Selecciona categorías">
+      <ion-select-option *ngFor="let category of categories" [value]="category._id">
+        {{ category.name }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
   <ion-list>
     <ion-item *ngFor="let task of tasks">
       <ion-label [class.completed]="task.status === 'completada'">
@@ -27,6 +41,13 @@
         <span *ngIf="isAdmin && task.username" class="task-user">
           - {{ task.username }}
         </span>
+
+        <div *ngIf="task.categories && task.categories.length > 0" style="margin-top: 8px;">
+          <strong>Categorías:</strong>
+          <span *ngFor="let category of task.categories; let last = last">
+            {{ category.name }}<span *ngIf="!last">, </span>
+          </span>
+        </div>
 
         <div *ngIf="task.imageUrl">
           <img

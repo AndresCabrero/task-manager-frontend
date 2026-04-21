@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService, Task } from '../services/task.service';
 import { AuthService } from '../services/auth.service';
+import { CategoryService, Category } from '../services/category.service';
 
 @Component({
   selector: 'app-home',
@@ -10,15 +11,26 @@ import { AuthService } from '../services/auth.service';
 })
 export class HomePage implements OnInit {
   tasks: Task[] = [];
+  categories: Category[] = [];
+
   newTaskTitle: string = '';
   selectedImage: File | null = null;
+  selectedCategories: string[] = [];
   isAdmin: boolean = false;
 
-  constructor(private taskService: TaskService, private authService: AuthService) {}
+  constructor(
+    private taskService: TaskService,
+    private authService: AuthService,
+    private categoryService: CategoryService
+  ) {}
 
   ngOnInit() {
     this.checkIfAdmin();
+  }
+
+  ionViewWillEnter() {
     this.loadTasks();
+    this.loadCategories();
   }
 
   checkIfAdmin() {
@@ -35,8 +47,14 @@ export class HomePage implements OnInit {
   }
 
   loadTasks() {
-    this.taskService.getTasks().subscribe(tasks => {
+    this.taskService.getTasks().subscribe((tasks: Task[]) => {
       this.tasks = tasks;
+    });
+  }
+
+  loadCategories() {
+    this.categoryService.getCategories().subscribe((categories: Category[]) => {
+      this.categories = categories;
     });
   }
 
@@ -50,17 +68,23 @@ export class HomePage implements OnInit {
   addTask() {
     if (!this.newTaskTitle.trim()) return;
 
-    this.taskService.addTask(this.newTaskTitle, this.selectedImage || undefined).subscribe(task => {
+    this.taskService.addTask(
+      this.newTaskTitle,
+      this.selectedCategories,
+      this.selectedImage || undefined
+    ).subscribe((task: Task) => {
       this.tasks.push(task);
       this.newTaskTitle = '';
       this.selectedImage = null;
+      this.selectedCategories = [];
+      this.loadTasks();
     });
   }
 
   changeStatus(task: Task, event: any) {
     const newStatus = event.detail.value as 'pendiente' | 'en_progreso' | 'completada';
 
-    this.taskService.updateTask(task._id!, newStatus).subscribe(updatedTask => {
+    this.taskService.updateTask(task._id!, newStatus).subscribe((updatedTask: Task) => {
       task.status = updatedTask.status;
     });
   }

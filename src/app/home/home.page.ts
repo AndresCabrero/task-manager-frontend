@@ -8,15 +8,29 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['home.page.scss'],
   standalone: false,
 })
-
 export class HomePage implements OnInit {
   tasks: Task[] = [];
   newTaskTitle: string = '';
+  isAdmin: boolean = false;
 
   constructor(private taskService: TaskService, private authService: AuthService) {}
 
   ngOnInit() {
+    this.checkIfAdmin();
     this.loadTasks();
+  }
+
+  checkIfAdmin() {
+    const token = this.authService.getToken();
+
+    if (!token) return;
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      this.isAdmin = payload.role === 'admin';
+    } catch (error) {
+      this.isAdmin = false;
+    }
   }
 
   loadTasks() {

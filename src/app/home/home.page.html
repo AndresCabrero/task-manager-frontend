@@ -10,13 +10,13 @@
 
 <ion-content>
 
-
+  <!-- Input nueva tarea -->
   <ion-item>
     <ion-input [(ngModel)]="newTaskTitle" placeholder="Nueva tarea"></ion-input>
     <ion-button (click)="addTask()">Añadir</ion-button>
   </ion-item>
 
-
+  <!-- Lista de tareas -->
   <ion-list>
     <ion-item *ngFor="let task of tasks">
 
@@ -28,6 +28,7 @@
 
       <ion-label [class.completed]="task.completed">
         {{ task.title }}
+        <span *ngIf="isAdmin && task.username" class="task-user"> - {{ task.username }}</span>
       </ion-label>
 
       <ion-button

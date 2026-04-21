@@ -7,6 +7,7 @@ export interface Task {
   _id?: string;
   title: string;
   completed: boolean;
+  username?: string;
 }
 
 @Injectable({

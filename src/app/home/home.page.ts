@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TaskService, Task } from '../services/task';
+import { TaskService, Task } from '../services/task.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -7,11 +8,12 @@ import { TaskService, Task } from '../services/task';
   styleUrls: ['home.page.scss'],
   standalone: false,
 })
+
 export class HomePage implements OnInit {
   tasks: Task[] = [];
   newTaskTitle: string = '';
 
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService, private authService: AuthService) {}
 
   ngOnInit() {
     this.loadTasks();
@@ -33,7 +35,7 @@ export class HomePage implements OnInit {
   }
 
   toggleTask(task: Task) {
-    this.taskService.toggleTask(task._id!).subscribe(updatedTask => {
+    this.taskService.updateTask(task._id!, task.completed).subscribe(updatedTask => {
       task.completed = updatedTask.completed;
     });
   }
@@ -42,5 +44,9 @@ export class HomePage implements OnInit {
     this.taskService.deleteTask(task._id!).subscribe(() => {
       this.tasks = this.tasks.filter(t => t._id !== task._id);
     });
+  }
+  
+  logout() {
+    this.authService.logout();
   }
 }

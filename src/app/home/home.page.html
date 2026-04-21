@@ -1,24 +1,43 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Gestor de Tareas</ion-title>
+    <ion-title>Mis Tareas</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">Cerrar sesión</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content>
+
+
   <ion-item>
     <ion-input [(ngModel)]="newTaskTitle" placeholder="Nueva tarea"></ion-input>
     <ion-button (click)="addTask()">Añadir</ion-button>
   </ion-item>
 
+
   <ion-list>
     <ion-item *ngFor="let task of tasks">
+
+      <ion-checkbox
+        slot="start"
+        [(ngModel)]="task.completed"
+        (ionChange)="toggleTask(task)">
+      </ion-checkbox>
+
       <ion-label [class.completed]="task.completed">
         {{ task.title }}
       </ion-label>
-      <ion-checkbox slot="end" [(ngModel)]="task.completed" (ionChange)="toggleTask(task)"></ion-checkbox>
-      <ion-button color="danger" fill="clear" (click)="deleteTask(task)">
+
+      <ion-button
+        color="danger"
+        fill="clear"
+        (click)="deleteTask(task)">
         <ion-icon name="trash"></ion-icon>
       </ion-button>
+
     </ion-item>
   </ion-list>
+
 </ion-content>

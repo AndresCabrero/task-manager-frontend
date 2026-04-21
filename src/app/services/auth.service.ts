@@ -17,12 +17,14 @@ export class AuthService {
     return !!localStorage.getItem('token');
   }
 
-  register(username: string, password: string) {
-    return this.http.post(`${this.apiUrl}/register`, {
-      username, password
-    });
-  }
-
+  register(name: string, email: string, username: string, password: string) {
+  return this.http.post(`${this.apiUrl}/register`, {
+    name,
+    email,
+    username,
+    password
+  });
+}
   login(username: string, password: string) {
     return this.http.post<{ token: string }>(`${this.apiUrl}/login`, {
       username, password

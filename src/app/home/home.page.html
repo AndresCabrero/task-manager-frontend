@@ -10,26 +10,29 @@
 
 <ion-content>
 
-  <!-- Input nueva tarea -->
   <ion-item>
     <ion-input [(ngModel)]="newTaskTitle" placeholder="Nueva tarea"></ion-input>
     <ion-button (click)="addTask()">Añadir</ion-button>
   </ion-item>
 
-  <!-- Lista de tareas -->
   <ion-list>
     <ion-item *ngFor="let task of tasks">
 
-      <ion-checkbox
-        slot="start"
-        [(ngModel)]="task.completed"
-        (ionChange)="toggleTask(task)">
-      </ion-checkbox>
-
-      <ion-label [class.completed]="task.completed">
+      <ion-label [class.completed]="task.status === 'completada'">
         {{ task.title }}
-        <span *ngIf="isAdmin && task.username" class="task-user"> - {{ task.username }}</span>
+        <span *ngIf="isAdmin && task.username" class="task-user">
+          - {{ task.username }}
+        </span>
       </ion-label>
+
+      <ion-select
+        [value]="task.status"
+        (ionChange)="changeStatus(task, $event)"
+        interface="popover">
+        <ion-select-option value="pendiente">Pendiente</ion-select-option>
+        <ion-select-option value="en_progreso">En progreso</ion-select-option>
+        <ion-select-option value="completada">Completada</ion-select-option>
+      </ion-select>
 
       <ion-button
         color="danger"

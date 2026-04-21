@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
 export interface Task {
   _id?: string;
   title: string;
-  completed: boolean;
+  status: 'pendiente' | 'en_progreso' | 'completada';
   username?: string;
 }
 
@@ -37,8 +37,8 @@ export class TaskService {
     });
   }
 
-  updateTask(id: string, completed: boolean): Observable<Task> {
-    return this.http.put<Task>(`${this.apiUrl}/${id}`, { completed }, {
+  updateTask(id: string, status: 'pendiente' | 'en_progreso' | 'completada'): Observable<Task> {
+    return this.http.put<Task>(`${this.apiUrl}/${id}`, { status }, {
       headers: this.getHeaders()
     });
   }

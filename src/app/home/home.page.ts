@@ -48,9 +48,11 @@ export class HomePage implements OnInit {
     });
   }
 
-  toggleTask(task: Task) {
-    this.taskService.updateTask(task._id!, task.completed).subscribe(updatedTask => {
-      task.completed = updatedTask.completed;
+  changeStatus(task: Task, event: any) {
+    const newStatus = event.detail.value as 'pendiente' | 'en_progreso' | 'completada';
+
+    this.taskService.updateTask(task._id!, newStatus).subscribe(updatedTask => {
+      task.status = updatedTask.status;
     });
   }
 
@@ -59,7 +61,7 @@ export class HomePage implements OnInit {
       this.tasks = this.tasks.filter(t => t._id !== task._id);
     });
   }
-  
+
   logout() {
     this.authService.logout();
   }

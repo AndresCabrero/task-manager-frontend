@@ -11,6 +11,7 @@ import { AuthService } from '../services/auth.service';
 export class HomePage implements OnInit {
   tasks: Task[] = [];
   newTaskTitle: string = '';
+  selectedImage: File | null = null;
   isAdmin: boolean = false;
 
   constructor(private taskService: TaskService, private authService: AuthService) {}
@@ -39,12 +40,20 @@ export class HomePage implements OnInit {
     });
   }
 
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedImage = file;
+    }
+  }
+
   addTask() {
     if (!this.newTaskTitle.trim()) return;
 
-    this.taskService.addTask(this.newTaskTitle).subscribe(task => {
+    this.taskService.addTask(this.newTaskTitle, this.selectedImage || undefined).subscribe(task => {
       this.tasks.push(task);
       this.newTaskTitle = '';
+      this.selectedImage = null;
     });
   }
 

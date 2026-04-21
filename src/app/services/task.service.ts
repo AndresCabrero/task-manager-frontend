@@ -7,6 +7,7 @@ export interface Task {
   _id?: string;
   title: string;
   status: 'pendiente' | 'en_progreso' | 'completada';
+  imageUrl?: string; 
   username?: string;
 }
 
@@ -31,8 +32,15 @@ export class TaskService {
     });
   }
 
-  addTask(title: string): Observable<Task> {
-    return this.http.post<Task>(this.apiUrl, { title }, {
+  addTask(title: string, image?: File): Observable<Task> {
+    const formData = new FormData();
+    formData.append('title', title);
+
+    if (image) {
+      formData.append('image', image);
+    }
+
+    return this.http.post<Task>(this.apiUrl, formData, {
       headers: this.getHeaders()
     });
   }

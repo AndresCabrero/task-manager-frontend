@@ -15,14 +15,26 @@
     <ion-button (click)="addTask()">Añadir</ion-button>
   </ion-item>
 
+  <ion-item>
+    <input type="file" accept="image/*" (change)="onFileSelected($event)">
+  </ion-item>
+
   <ion-list>
     <ion-item *ngFor="let task of tasks">
-
       <ion-label [class.completed]="task.status === 'completada'">
-        {{ task.title }}
+        <h2>{{ task.title }}</h2>
+
         <span *ngIf="isAdmin && task.username" class="task-user">
           - {{ task.username }}
         </span>
+
+        <div *ngIf="task.imageUrl">
+          <img
+            [src]="'http://localhost:5000' + task.imageUrl"
+            alt="Imagen de la tarea"
+            style="width: 100px; margin-top: 8px; border-radius: 8px;"
+          />
+        </div>
       </ion-label>
 
       <ion-select
@@ -40,7 +52,6 @@
         (click)="deleteTask(task)">
         <ion-icon name="trash"></ion-icon>
       </ion-button>
-
     </ion-item>
   </ion-list>
 

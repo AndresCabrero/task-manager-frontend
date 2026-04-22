@@ -52,8 +52,14 @@ export class TaskService {
     });
   }
 
-  updateTask(id: string, status: 'pendiente' | 'en_progreso' | 'completada'): Observable<Task> {
-    return this.http.put<Task>(`${this.apiUrl}/${id}`, { status }, {
+  updateTask(
+    id: string,
+    data: {
+      title?: string;
+      status?: 'pendiente' | 'en_progreso' | 'completada';
+    }
+  ): Observable<Task> {
+    return this.http.put<Task>(`${this.apiUrl}/${id}`, data, {
       headers: this.getHeaders()
     });
   }

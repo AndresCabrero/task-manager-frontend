@@ -386,6 +386,52 @@
   border-color: rgba(34, 197, 94, 0.35);
 }
 
+/* EDICIÓN DE TAREA */
+.edit-task-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edit-task-item {
+  min-height: 52px;
+}
+
+.edit-task-item::part(native) {
+  min-height: 52px;
+}
+
+.edit-task-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.save-task-button {
+  --background: linear-gradient(135deg, #42c4c7, #2fa7af);
+  --background-hover: linear-gradient(135deg, #4ed1d4, #35b8c0);
+  --background-activated: linear-gradient(135deg, #2fa7af, #278f96);
+  --color: #ffffff;
+  --border-radius: 10px;
+  height: 34px;
+  font-weight: 600;
+  text-transform: none;
+}
+
+.cancel-task-button {
+  --color: #cbd5e1;
+  --background-hover: rgba(148, 163, 184, 0.12);
+  --border-radius: 10px;
+  height: 34px;
+  text-transform: none;
+}
+
+.task-edit-button {
+  --color: #42c4c7;
+  margin: 0;
+}
+
+/* DELETE */
 .task-delete-button {
   margin: 0;
 }
@@ -423,5 +469,9 @@
 
   .task-list {
     grid-template-columns: 1fr;
+  }
+
+  .task-card-bottom {
+    flex-wrap: wrap;
   }
 }

@@ -18,6 +18,9 @@ export class HomePage implements OnInit {
   selectedCategories: string[] = [];
   isAdmin: boolean = false;
 
+  editingTaskId: string | null = null;
+  editedTaskTitle: string = '';
+
   constructor(
     private taskService: TaskService,
     private authService: AuthService,
@@ -84,8 +87,35 @@ export class HomePage implements OnInit {
   changeStatus(task: Task, event: any) {
     const newStatus = event.detail.value as 'pendiente' | 'en_progreso' | 'completada';
 
-    this.taskService.updateTask(task._id!, newStatus).subscribe((updatedTask: Task) => {
+    this.taskService.updateTask(task._id!, { status: newStatus }).subscribe((updatedTask: Task) => {
       task.status = updatedTask.status;
+    });
+  }
+
+
+  startEditing(task: Task) {
+    this.editingTaskId = task._id || null;
+    this.editedTaskTitle = task.title;
+  }
+
+
+  cancelEditing() {
+    this.editingTaskId = null;
+    this.editedTaskTitle = '';
+  }
+
+
+  saveTaskTitle(task: Task) {
+    if (!task._id) return;
+
+    const trimmedTitle = this.editedTaskTitle.trim();
+
+    if (!trimmedTitle) return;
+
+    this.taskService.updateTask(task._id, { title: trimmedTitle }).subscribe((updatedTask: Task) => {
+      task.title = updatedTask.title;
+      this.editingTaskId = null;
+      this.editedTaskTitle = '';
     });
   }
 

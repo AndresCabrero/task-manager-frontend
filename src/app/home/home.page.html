@@ -106,11 +106,42 @@
       <div class="task-list">
         <div class="task-card" *ngFor="let task of tasks">
           <div class="task-card-top">
-            <h3 [class.completed]="task.status === 'completada'">{{ task.title }}</h3>
 
-            <p *ngIf="isAdmin && task.username" class="task-user">
-              Usuario: {{ task.username }}
-            </p>
+            <!-- MODO NORMAL -->
+            <ng-container *ngIf="editingTaskId !== task._id; else editMode">
+              <h3 [class.completed]="task.status === 'completada'">{{ task.title }}</h3>
+
+              <p *ngIf="isAdmin && task.username" class="task-user">
+                Usuario: {{ task.username }}
+              </p>
+            </ng-container>
+
+            <!-- MODO EDICIÓN -->
+            <ng-template #editMode>
+              <div class="edit-task-box">
+                <ion-item class="custom-item edit-task-item" lines="none">
+                  <ion-input
+                    [(ngModel)]="editedTaskTitle"
+                    placeholder="Editar título">
+                  </ion-input>
+                </ion-item>
+
+                <div class="edit-task-actions">
+                  <ion-button size="small" class="save-task-button" (click)="saveTaskTitle(task)">
+                    Guardar
+                  </ion-button>
+
+                  <ion-button size="small" fill="clear" class="cancel-task-button" (click)="cancelEditing()">
+                    Cancelar
+                  </ion-button>
+                </div>
+              </div>
+
+              <p *ngIf="isAdmin && task.username" class="task-user">
+                Usuario: {{ task.username }}
+              </p>
+            </ng-template>
+
           </div>
 
           <div *ngIf="task.imageUrl" class="task-card-image">
@@ -144,6 +175,13 @@
                 <ion-select-option value="completada">Completada</ion-select-option>
               </ion-select>
             </ion-item>
+
+            <ion-button
+              fill="clear"
+              class="task-edit-button"
+              (click)="startEditing(task)">
+              <ion-icon name="create-outline"></ion-icon>
+            </ion-button>
 
             <ion-button
               color="danger"

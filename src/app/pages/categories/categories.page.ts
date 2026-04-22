@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CategoryService, Category } from '../../services/category.service';
-import { Location } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-categories',
@@ -15,7 +16,8 @@ export class CategoriesPage implements OnInit {
 
   constructor(
     private categoryService: CategoryService,
-    private location: Location
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -31,21 +33,21 @@ export class CategoriesPage implements OnInit {
   addCategory() {
     if (!this.newCategoryName.trim()) return;
 
-    this.categoryService.addCategory(this.newCategoryName).subscribe((category: Category) => {
-      this.categories.push(category);
+    this.categoryService.addCategory(this.newCategoryName).subscribe(() => {
       this.newCategoryName = '';
+      this.loadCategories();
     });
   }
 
   deleteCategory(category: Category) {
-    if (!category._id) return;
-
-    this.categoryService.deleteCategory(category._id).subscribe(() => {
-      this.categories = this.categories.filter(c => c._id !== category._id);
+    this.categoryService.deleteCategory(category._id!).subscribe(() => {
+      this.loadCategories();
     });
   }
 
-  goBack() {
-    this.location.back();
+  // 🔥 AÑADIDO
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

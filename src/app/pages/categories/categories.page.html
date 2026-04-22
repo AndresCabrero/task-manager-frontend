@@ -1,33 +1,86 @@
-<ion-header>
+<ion-header class="home-header">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button (click)="goBack()">Volver</ion-button>
-    </ion-buttons>
-    <ion-title>Categorías</ion-title>
+    <div class="toolbar-content">
+      <div class="brand-section">
+        <img src="assets/logotipo-i4life.jpg" alt="Logo i4life" class="brand-logo" />
+
+        <div class="brand-text">
+          <h1>Categorías</h1>
+          <p>Gestiona tus etiquetas</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <ion-button fill="clear" routerLink="/home" class="header-btn">
+          <ion-icon name="list-outline" slot="start"></ion-icon>
+          Tareas
+        </ion-button>
+
+        <ion-button fill="clear" (click)="logout()" class="header-btn logout-btn">
+          <ion-icon name="power-outline" slot="start"></ion-icon>
+          Cerrar sesión
+        </ion-button>
+      </div>
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="home-content">
+  <div class="home-wrapper">
 
-  <ion-item>
-    <ion-input
-      [(ngModel)]="newCategoryName"
-      placeholder="Nueva categoría">
-    </ion-input>
-    <ion-button (click)="addCategory()">Crear</ion-button>
-  </ion-item>
+    <div class="create-task-card">
+      <div class="section-title">
+        <h2>Nueva categoría</h2>
+        <p>Crea etiquetas para organizar tus tareas</p>
+      </div>
 
-  <ion-list>
-    <ion-item *ngFor="let category of categories">
-      <ion-label>{{ category.name }}</ion-label>
+      <div class="single-task-form">
+        <div class="form-group">
+          <label>Nombre</label>
 
-      <ion-button
-        color="danger"
-        fill="clear"
-        (click)="deleteCategory(category)">
-        <ion-icon name="trash"></ion-icon>
-      </ion-button>
-    </ion-item>
-  </ion-list>
+          <ion-item class="custom-item" lines="none">
+            <ion-input
+              [(ngModel)]="newCategoryName"
+              placeholder="Ej: Trabajo, Personal, Urgente">
+            </ion-input>
+          </ion-item>
+        </div>
 
+        <div class="create-task-actions">
+          <ion-button class="primary-button" (click)="addCategory()">
+            <ion-icon name="add-outline" slot="start"></ion-icon>
+            Crear categoría
+          </ion-button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tasks-section">
+      <div class="section-title">
+        <h2>Listado de categorías</h2>
+        <p>{{ categories.length }} categoría(s)</p>
+      </div>
+
+      <div *ngIf="categories.length === 0" class="empty-state">
+        <p>No tienes categorías todavía.</p>
+      </div>
+
+      <div class="category-list">
+        <div class="category-card" *ngFor="let category of categories">
+          <div class="category-info">
+            <h3>{{ category.name }}</h3>
+          </div>
+
+          <ion-button
+            color="danger"
+            fill="clear"
+            class="delete-button"
+            (click)="deleteCategory(category)">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </ion-content>

@@ -205,12 +205,12 @@
 
 .file-button {
   display: inline-flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
+  vertical-align: middle;
   gap: 8px;
   height: 38px;
-  line-height: 1;
-  align-self: center;
   background: rgba(66, 196, 199, 0.16);
   color: #7ce5e8;
   border: 1px solid rgba(66, 196, 199, 0.28);
@@ -221,11 +221,16 @@
   cursor: pointer;
   white-space: nowrap;
   flex-shrink: 0;
+  line-height: 1;
   transition: transform 0.18s ease, background-color 0.18s ease;
 }
 
 .file-button ion-icon {
   font-size: 1rem;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+  flex-shrink: 0;
 }
 
 .file-button:hover {

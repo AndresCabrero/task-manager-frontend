@@ -1,38 +1,422 @@
-#container {
-  text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+.home-content {
+  --background: radial-gradient(circle at top, #13203a 0%, #0b1220 55%, #070d18 100%);
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.home-header ion-toolbar {
+  --background: rgba(11, 18, 32, 0.97);
+  --border-color: transparent;
+  padding: 14px 22px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
+.toolbar-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+}
 
-  color: #8c8c8c;
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
 
+.brand-logo {
+  width: 125px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.brand-text h1 {
   margin: 0;
+  color: #f8fafc;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.1;
 }
 
-#container a {
-  text-decoration: none;
+.brand-text p {
+  margin: 6px 0 0;
+  color: #94a3b8;
+  font-size: 1rem;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-btn {
+  --color: #e2e8f0;
+  --background: transparent;
+  --background-hover: rgba(66, 196, 199, 0.16);
+  --background-activated: rgba(66, 196, 199, 0.22);
+  --ripple-color: rgba(66, 196, 199, 0.25);
+  --border-radius: 14px;
+  height: 46px;
+  font-weight: 600;
+  text-transform: none;
+  border: none;
+  box-shadow: none;
+  transition: transform 0.18s ease, opacity 0.18s ease, background-color 0.18s ease;
+}
+
+.header-btn:hover {
+  transform: translateY(-1px);
+  --background: rgba(66, 196, 199, 0.16);
+  --color: #ffffff;
+}
+
+.header-btn ion-icon {
+  font-size: 1rem;
+  color: #42c4c7;
+}
+
+.logout-btn {
+  --background-hover: rgba(239, 68, 68, 0.16);
+  --background-activated: rgba(239, 68, 68, 0.22);
+  --ripple-color: rgba(239, 68, 68, 0.25);
+}
+
+.logout-btn:hover {
+  --background: rgba(239, 68, 68, 0.16);
+  --color: #ffffff;
+}
+
+.home-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 20px 40px;
+}
+
+/* NUEVA TAREA */
+.create-task-card {
+  background: rgba(15, 23, 42, 0.88);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: 24px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+  padding: 26px;
+  margin-bottom: 28px;
+}
+
+.single-task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.section-title {
+  margin-bottom: 18px;
+}
+
+.section-title h2 {
+  margin: 0;
+  color: #f8fafc;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.section-title p {
+  margin: 6px 0 0;
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #cbd5e1;
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+/* UNA SOLA CAJA VISUAL */
+.custom-item,
+.status-item {
+  --background: transparent;
+  --inner-border-width: 0;
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  --min-height: 60px;
+  background: #0b1324;
+  border: 1px solid rgba(71, 85, 105, 0.45);
+  border-radius: 14px;
+  color: #f8fafc;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+.custom-item::part(native),
+.status-item::part(native) {
+  background: transparent;
+  min-height: 60px;
+  padding: 0 16px;
+  box-shadow: none;
+  border: 0;
+}
+
+.custom-item ion-input,
+.custom-item ion-select,
+.status-item ion-select {
+  color: #f8fafc;
+  width: 100%;
+}
+
+.custom-item ion-input {
+  --padding-top: 0;
+  --padding-bottom: 0;
+}
+
+.custom-item ion-select,
+.status-item ion-select {
+  --placeholder-color: #94a3b8;
+  --padding-top: 0;
+  --padding-bottom: 0;
+}
+
+/* IMAGEN */
+.file-upload-box {
+  min-height: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #0b1324;
+  border: 1px solid rgba(71, 85, 105, 0.45);
+  border-radius: 14px;
+  padding: 0 14px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.file-upload-box input[type="file"] {
+  display: none;
+}
+
+.file-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 38px;
+  line-height: 1;
+  align-self: center;
+  background: rgba(66, 196, 199, 0.16);
+  color: #7ce5e8;
+  border: 1px solid rgba(66, 196, 199, 0.28);
+  border-radius: 10px;
+  padding: 0 12px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: transform 0.18s ease, background-color 0.18s ease;
+}
+
+.file-button ion-icon {
+  font-size: 1rem;
+}
+
+.file-button:hover {
+  transform: translateY(-1px);
+  background: rgba(66, 196, 199, 0.22);
+}
+
+.file-name {
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.create-task-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+
+.primary-button {
+  --background: linear-gradient(135deg, #42c4c7, #2fa7af);
+  --background-hover: linear-gradient(135deg, #4ed1d4, #35b8c0);
+  --background-activated: linear-gradient(135deg, #2fa7af, #278f96);
+  --color: #ffffff;
+  --border-radius: 14px;
+  height: 48px;
+  font-weight: 700;
+  text-transform: none;
+  box-shadow: 0 10px 24px rgba(47, 167, 175, 0.28);
+}
+
+/* TAREAS */
+.tasks-section {
+  margin-top: 10px;
+}
+
+.empty-state {
+  background: rgba(15, 23, 42, 0.88);
+  border: 1px dashed rgba(148, 163, 184, 0.2);
+  border-radius: 18px;
+  padding: 24px;
+  text-align: center;
+  color: #94a3b8;
+}
+
+/* GRID 3 EN 3 */
+.task-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.task-card {
+  background: rgba(15, 23, 42, 0.92);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: 24px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+  padding: 18px;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.task-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.34);
+}
+
+.task-card-top h3 {
+  margin: 0;
+  color: #f8fafc;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.3;
 }
 
 .completed {
   text-decoration: line-through;
-  color: gray;
+  color: #7c8aa0 !important;
 }
 
 .task-user {
-  color: #999;
-  font-size: 0.8em;
+  margin: 10px 0 0;
+  color: #cbd5e1;
+  font-size: 0.86rem;
   font-style: italic;
+  display: block;
+}
+
+.task-card-image {
+  margin-top: 14px;
+}
+
+.task-image {
+  width: 100%;
+  height: 135px;
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  object-fit: cover;
+}
+
+.category-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.chip {
+  background: rgba(66, 196, 199, 0.14);
+  color: #7ce5e8;
+  border: 1px solid rgba(66, 196, 199, 0.28);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.task-card-bottom {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.task-status-item {
+  flex: 1;
+  min-width: auto;
+}
+
+/* COLORES DEL ESTADO */
+.status-pendiente {
+  background: rgba(245, 158, 11, 0.14);
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+.status-en-progreso {
+  background: rgba(59, 130, 246, 0.14);
+  border-color: rgba(59, 130, 246, 0.35);
+}
+
+.status-completada {
+  background: rgba(34, 197, 94, 0.14);
+  border-color: rgba(34, 197, 94, 0.35);
+}
+
+.task-delete-button {
+  margin: 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .task-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .toolbar-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .brand-logo {
+    width: 95px;
+  }
+
+  .brand-text h1 {
+    font-size: 1.6rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .task-list {
+    grid-template-columns: 1fr;
+  }
 }

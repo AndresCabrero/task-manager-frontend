@@ -54,7 +54,7 @@ export class LoginPage implements OnDestroy {
 
           return;
         }
-        this.errorMessage = 'Ha ocurrido un error. Inténtalo de nuevo.';
+        this.errorMessage = 'Cuenta bloqueada, contacta con un administrador';
       }
     });
   }

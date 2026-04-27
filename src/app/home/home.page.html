@@ -11,6 +11,15 @@
       </div>
 
       <div class="header-actions">
+        <ion-button
+          *ngIf="isAdmin"
+          fill="clear"
+          routerLink="/admin"
+          class="header-btn">
+          <ion-icon name="settings-outline" slot="start"></ion-icon>
+          Panel Admin
+        </ion-button>
+
         <ion-button fill="clear" routerLink="/categories" class="header-btn">
           <ion-icon name="pricetags-outline" slot="start"></ion-icon>
           Categorías

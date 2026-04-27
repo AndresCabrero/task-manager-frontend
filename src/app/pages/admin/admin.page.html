@@ -1,0 +1,150 @@
+<ion-header class="home-header">
+  <ion-toolbar>
+    <div class="toolbar-content">
+      <div class="brand-section">
+        <img src="assets/logotipo-i4life.jpg" alt="Logo i4life" class="brand-logo" />
+
+        <div class="brand-text">
+          <h1>Panel Admin</h1>
+          <p>Gestión de usuarios y seguridad</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+
+        <ion-button fill="clear" routerLink="/home" class="header-btn">
+          <ion-icon name="list-outline" slot="start"></ion-icon>
+          Tareas
+        </ion-button>
+
+        <ion-button fill="clear" routerLink="/categories" class="header-btn">
+          <ion-icon name="pricetags-outline" slot="start"></ion-icon>
+          Categorías
+        </ion-button>
+
+        <ion-button fill="clear" (click)="logout()" class="header-btn logout-btn">
+          <ion-icon name="power-outline" slot="start"></ion-icon>
+          Cerrar sesión
+        </ion-button>
+
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="home-content">
+  <div class="home-wrapper">
+
+    <!-- ESTADÍSTICAS -->
+    <div class="create-task-card">
+      <div class="section-title">
+        <h2>Estadísticas del sistema</h2>
+        <p>Resumen general de usuarios, tareas y categorías</p>
+      </div>
+
+      <div class="stats-grid" *ngIf="stats">
+        <div class="stat-card">
+          <span>Usuarios</span>
+          <strong>{{ stats.totalUsers }}</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>Administradores</span>
+          <strong>{{ stats.totalAdmins }}</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>Bloqueados</span>
+          <strong>{{ stats.totalBlockedUsers }}</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>Tareas</span>
+          <strong>{{ stats.totalTasks }}</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>Categorías</span>
+          <strong>{{ stats.totalCategories }}</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- USUARIOS -->
+    <div class="tasks-section">
+      <div class="section-title">
+        <h2>Gestión de usuarios</h2>
+        <p>Busca, filtra y gestiona cuentas</p>
+      </div>
+
+      <div class="admin-filters">
+        <ion-item class="custom-item search-item" lines="none">
+          <ion-input
+            [(ngModel)]="searchTerm"
+            (ionInput)="onSearchChange()"
+            placeholder="Buscar por usuario o email">
+          </ion-input>
+        </ion-item>
+
+        <ion-item lines="none" class="checkbox-item">
+          <ion-checkbox
+            slot="start"
+            [(ngModel)]="showBlockedOnly"
+            (ionChange)="onToggleBlocked()">
+          </ion-checkbox>
+          <ion-label>Solo bloqueados</ion-label>
+        </ion-item>
+      </div>
+
+      <div class="user-list">
+        <div class="user-card" *ngFor="let user of users">
+
+          <div class="user-info">
+            <h3>{{ user.username }}</h3>
+            <p>{{ user.email }}</p>
+
+            <div class="user-meta">
+              <span class="role" [class.admin]="user.role === 'admin'">
+                {{ user.role }}
+              </span>
+
+              <span class="blocked" *ngIf="user.isAdminBlocked">
+                Bloqueado
+              </span>
+            </div>
+          </div>
+
+          <div class="user-actions">
+            <ion-button
+              *ngIf="user.isAdminBlocked"
+              size="small"
+              color="warning"
+              (click)="unblockUser(user._id)">
+              Desbloquear
+            </ion-button>
+
+            <ion-button
+              size="small"
+              class="admin-action-button"
+              (click)="toggleRole(user)">
+              {{ user.role === 'admin' ? 'Quitar admin' : 'Hacer admin' }}
+            </ion-button>
+
+            <ion-button
+              size="small"
+              color="danger"
+              (click)="deleteUser(user._id)">
+              Eliminar
+            </ion-button>
+          </div>
+
+        </div>
+
+        <div *ngIf="users.length === 0" class="empty-state">
+          <p>No hay usuarios que coincidan</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ion-content>

@@ -113,3 +113,22 @@
 .register-link:hover {
   text-decoration: underline;
 }
+
+.login-error {
+  margin: 14px 0;
+  padding: 12px;
+  border-radius: 10px;
+  background: #ffe5e5;
+  color: #9b1c1c;
+  font-size: 14px;
+  text-align: center;
+}
+
+.login-error p {
+  margin: 0;
+}
+
+.countdown-text {
+  margin-top: 6px !important;
+  font-weight: 600;
+}

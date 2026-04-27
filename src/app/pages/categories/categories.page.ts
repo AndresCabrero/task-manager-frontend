@@ -45,7 +45,7 @@ export class CategoriesPage implements OnInit {
     });
   }
 
-  // 🔥 AÑADIDO
+  
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);

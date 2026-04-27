@@ -56,7 +56,31 @@
         </ion-item>
       </div>
 
-      <ion-button expand="block" class="register-button" (click)="register()">
+      <div class="password-rules">
+        <span class="password-rules-title">La contraseña debe incluir:</span>
+
+        <p [class.valid]="password.length >= 8">
+          Mínimo 8 caracteres
+        </p>
+
+        <p [class.valid]="hasUppercase()">
+          Al menos una mayúscula
+        </p>
+
+        <p [class.valid]="hasNumber()">
+          Al menos un número
+        </p>
+
+        <p [class.valid]="hasSpecialChar()">
+          Al menos un carácter especial
+        </p>
+      </div>
+
+      <ion-button
+        expand="block"
+        class="register-button"
+        (click)="register()"
+        [disabled]="!isStrongPassword()">
         Crear cuenta
       </ion-button>
 

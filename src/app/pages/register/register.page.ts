@@ -14,6 +14,16 @@ export class RegisterPage {
   username = '';
   password = '';
 
+  // Comprueba si la contraseña cumple los requisitos mínimos de seguridad
+  isStrongPassword(): boolean {
+    const hasMinLength = this.password.length >= 8;
+    const hasUppercase = /[A-Z]/.test(this.password);
+    const hasNumber = /[0-9]/.test(this.password);
+    const hasSpecialChar = /[^A-Za-z0-9]/.test(this.password);
+
+    return hasMinLength && hasUppercase && hasNumber && hasSpecialChar;
+  }
+
   constructor(private authService: AuthService, private router: Router) {}
 
   register() {
@@ -24,5 +34,17 @@ export class RegisterPage {
 
   goToLogin() {
     this.router.navigate(['/login']);
+  }
+  
+  hasUppercase(): boolean {
+    return /[A-Z]/.test(this.password);
+  }
+
+  hasNumber(): boolean {
+    return /[0-9]/.test(this.password);
+  }
+
+  hasSpecialChar(): boolean {
+    return /[^A-Za-z0-9]/.test(this.password);
   }
 }

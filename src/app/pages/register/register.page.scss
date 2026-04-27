@@ -113,3 +113,47 @@
 .login-link:hover {
   text-decoration: underline;
 }
+
+.password-rules {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.password-rules p {
+  position: relative;
+  margin: 7px 0;
+  padding-left: 24px;
+  font-size: 13px;
+  line-height: 1.3;
+  color: #8f98a8;
+}
+
+.password-rules p::before {
+  content: "○";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #8f98a8;
+  font-size: 14px;
+}
+
+.password-rules p.valid {
+  color: #38d39f;
+  font-weight: 600;
+}
+
+.password-rules p.valid::before {
+  content: "✓";
+  color: #38d39f;
+}
+
+.password-rules-title {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #c9d2e3;
+}

@@ -34,17 +34,26 @@ export class LoginPage implements OnDestroy {
         this.username = '';
         this.password = '';
 
-        if (error.status === 429) {
-          this.errorMessage = error.error?.error || 'Demasiados intentos. Inténtalo más tarde.';
-          this.startBlockCountdown(10);
+       if (error.status === 429) {
+          const seconds = Number(error.error?.retryAfterSeconds) || 10; // Conexión de Back con el Front para que el tiempo se vea igual
+
+          this.errorMessage = `Demasiados intentos. Cuenta bloqueada temporalmente durante ${seconds} segundos.`;
+
+          this.startBlockCountdown(seconds);
           return;
         }
 
         if (error.status === 401) {
-          this.errorMessage = error.error?.error || 'Usuario o contraseña incorrectos';
+          const remaining = error.error?.remainingAttempts;
+
+          if (remaining !== undefined) {
+            this.errorMessage = `Usuario o contraseña incorrectos. Te quedan ${remaining} intento(s).`;
+          } else {
+            this.errorMessage = error.error?.error || 'Usuario o contraseña incorrectos';
+          }
+
           return;
         }
-
         this.errorMessage = 'Ha ocurrido un error. Inténtalo de nuevo.';
       }
     });

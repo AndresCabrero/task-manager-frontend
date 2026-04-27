@@ -40,6 +40,7 @@
           <ion-item class="custom-item" lines="none">
             <ion-input
               [(ngModel)]="newTaskTitle"
+              maxlength="30"
               placeholder="Escribe el nombre de la tarea">
             </ion-input>
           </ion-item>
@@ -122,6 +123,7 @@
                 <ion-item class="custom-item edit-task-item" lines="none">
                   <ion-input
                     [(ngModel)]="editedTaskTitle"
+                    maxlength="30"
                     placeholder="Editar título">
                   </ion-input>
                 </ion-item>

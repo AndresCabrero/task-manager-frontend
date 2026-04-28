@@ -26,6 +26,11 @@ export class LoginPage implements OnDestroy {
 
     this.errorMessage = '';
 
+    if (!this.username.trim() || !this.password.trim()) {
+      this.errorMessage = 'Introduce usuario y contraseña';
+      return;
+    }
+
     this.authService.login(this.username, this.password).subscribe({
       next: () => {
         this.router.navigate(['/home']);
